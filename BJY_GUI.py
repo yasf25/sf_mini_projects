@@ -1,5 +1,3 @@
-# Расчёт каллорийности и БЖУ +бонусом курс BTC :)
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 class Ui_MainWindow(object):
@@ -52,13 +50,13 @@ class Ui_MainWindow(object):
         self.height.setGeometry(QtCore.QRect(150, 150, 130, 30))
         self.height.setObjectName("height")
         self.text_age = QtWidgets.QLabel(self.centralwidget)
-        self.text_age.setGeometry(QtCore.QRect(90, 60, 45, 15))
+        self.text_age.setGeometry(QtCore.QRect(65, 60, 90, 15))
         self.text_age.setObjectName("text_age")
         self.text_weight = QtWidgets.QLabel(self.centralwidget)
-        self.text_weight.setGeometry(QtCore.QRect(90, 110, 45, 15))
+        self.text_weight.setGeometry(QtCore.QRect(65, 110, 45, 15))
         self.text_weight.setObjectName("text_weight")
         self.text_height = QtWidgets.QLabel(self.centralwidget)
-        self.text_height.setGeometry(QtCore.QRect(90, 160, 45, 15))
+        self.text_height.setGeometry(QtCore.QRect(65, 160, 45, 15))
         self.text_height.setObjectName("text_height")
 
         self.BJUK = QtWidgets.QLabel(self.centralwidget)
@@ -75,10 +73,26 @@ class Ui_MainWindow(object):
         font.setWeight(10)
         font.setStrikeOut(False)
         font.setKerning(True)
+        font_a_w_h = QtGui.QFont()
+        font_a_w_h.setPointSize(14)
+        font_a_w_h.setUnderline(True)
+        font_a_w_h.setBold(True)
         self.BJUK.setStyleSheet("color: black")
         self.BJUK.setFont(font)
         self.BJUK.setObjectName("BJUK")
-        self.BTC.setFont(font)
+
+        self.BTC.setFont(font_a_w_h)
+        self.text_age.setFont(font_a_w_h)
+        self.text_weight.setFont(font_a_w_h)
+        self.text_height.setFont(font_a_w_h)
+        self.text_height.setStyleSheet("color: green")
+        self.text_weight.setStyleSheet("color: green")
+        self.text_age.setStyleSheet("color: green")
+
+
+
+
+
 
         self.cartman = QtWidgets.QLabel(self.centralwidget)
         self.cartman.setGeometry(QtCore.QRect(400, 265, 150, 70))
@@ -136,7 +150,7 @@ class Ui_MainWindow(object):
             self.BTC.setText('Курс BTC: ' + str(float(response.json()['price'])))
             if self.w > 95:
                 self.cartman.setPixmap(QtGui.QPixmap("E:/Python/PYTHONPROJECTS/BJY_ver_with_pyQT/cartman.png"))
-
+                self.BJUK.setText(res)
             else:
                 self.cartman.clear()
                 self.BJUK.setText(res)
