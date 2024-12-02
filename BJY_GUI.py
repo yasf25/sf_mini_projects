@@ -1,3 +1,4 @@
+# Графическое приложение подсчета калорий и БЖУ (и бонусом курс BTC через API).
 from PyQt5 import QtCore, QtGui, QtWidgets
 import requests
 class Ui_MainWindow(object):
