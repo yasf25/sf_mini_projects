@@ -1,1 +1,35 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+import re
+travel_books = []
+url = "https://books.toscrape.com/catalogue/category/books/travel_2/index.html"
+response = requests.get(url)
+
+html_content = response.text
+soup = BeautifulSoup(html_content, "html.parser")
+
+books = soup.find_all("article", class_="product_pod")
+#print(books)
+
+for book in books:
+    title = re.sub(r'[^\x00-\x7F]+', '', book.h3.a["title"])
+    rating = re.sub(r'[^\x00-\x7F]+', '', book.p["class"][-1])
+    price = re.sub(r'[^\x00-\x7F]+', '',
+                   book.find("p", class_="price_color").text)  # Удаляет все символы, не входящие в ASCII
+
+    print(f"Название: {title}, Цена: {price}, Рейтинг: {rating}")
+
+    travel_books.append({
+        'Title': title,
+        'Price': price,
+        'Rating': rating
+    })
+
+
+
+df = pd.DataFrame(travel_books)
+
+df.to_csv("travel_books.csv", index=False, sep=';', encoding='utf-8')
+
 
